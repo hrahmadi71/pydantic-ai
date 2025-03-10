@@ -8,9 +8,16 @@ from datetime import datetime, timezone
 from itertools import chain
 from typing import Literal, Union, cast, overload
 
-from groq import NOT_GIVEN, APIStatusError, AsyncGroq, AsyncStream
-from groq.types import chat
-from groq.types.chat.chat_completion_content_part_image_param import ImageURL
+try:
+    from groq import NOT_GIVEN, APIStatusError, AsyncGroq, AsyncStream
+    from groq.types import chat
+    from groq.types.chat.chat_completion_content_part_image_param import ImageURL
+except ImportError as _import_error:
+    raise ImportError(
+        'Please install `groq` to use the Groq model, '
+        "you can use the `groq` optional group — `pip install 'pydantic-ai-slim[groq]'`"
+    ) from _import_error
+
 from httpx import AsyncClient as AsyncHTTPClient
 from typing_extensions import assert_never, deprecated
 
